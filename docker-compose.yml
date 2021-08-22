@@ -1,0 +1,57 @@
+version: "3.9"
+services:
+  izanagi-postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=izanagi
+      - POSTGRES_DB=izanagidb
+      - POSTGRES_HOST_AUTH_METHOD=trust
+  izanagi:
+    build:
+      context: ../izanagi
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    volumes:
+      - /dev/:/dev/
+      - /var/run/pcscd/pcscd.comm:/var/run/pcscd/pcscd.comm
+      - /etc/localtime:/etc/localtime:ro
+    privileged: true
+    depends_on:
+      - "izanagi-postgres"
+  izanami-mongo:
+    image: mongo
+    logging:
+      driver: "none"
+  izanami:
+    build:
+      context: ../izanami
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - /dev/:/dev/
+      - /opt/izanami/video:/opt/izanami/video
+      - /etc/localtime:/etc/localtime:ro
+    privileged: true
+    depends_on:
+      - "izanami-mongo"
+      - "izanagi"
+      - "izanagi-postgres"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+  tsukuyomi:
+    build:
+      context: ../tsukuyomi
+      dockerfile: Dockerfile
+    ports:
+      - "80:3000"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - "izanami"
