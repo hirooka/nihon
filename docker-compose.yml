@@ -8,6 +8,8 @@ services:
       - POSTGRES_USER=izanagi
       - POSTGRES_DB=izanagidb
       - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - izanagi-postgres-data:/var/lib/postgresql/data
   izanagi:
     build:
       context: ../izanagi
@@ -25,6 +27,8 @@ services:
     image: mongo
     logging:
       driver: "none"
+    volumes:
+      - izanami-mongo-data:/data/db
   izanami:
     build:
       context: ../izanami
@@ -55,3 +59,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - "izanami"
+volumes:
+  izanagi-postgres-data:
+  izanami-mongo-data:
