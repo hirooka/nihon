@@ -1,10 +1,6 @@
 # Procedure
 
-## Prerequisites
-- Docker Engine 20.10.7
-- Docker Compose 1.29.2
-
-## AMD64 + Ubuntu 20.04.2 (amd64)
+## AMD64 + Ubuntu 22.04 (amd64)
 ```
 mkdir ~/working_directory
 

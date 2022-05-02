@@ -4,10 +4,10 @@ Video streaming system: [Izanagi](https://github.com/hirooka/izanagi), [Izanami]
 
 ## Prerequisites
 
-- Linux PC (Ubuntu 20.04)
-- NVIDIA GPU (GeForce 10 series) and its driver
-- Docker 20.10.12
-- Docker Compose 1.29.2
+- Linux PC (Ubuntu 22.04)
+- NVIDIA GPU (GeForce 10 series) and its driver (NVIDIA-SMI 510.60.02, Driver Version: 510.60.02, CUDA Version: 11.6)
+- Docker 20.10.14
+- Docker Compose v2.4.1
 
 ## Getting Started
 

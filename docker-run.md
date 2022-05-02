@@ -1,7 +1,3 @@
-## Prerequisites
-- Docker Engine 20.10.7
-- Docker Compose 1.29.2
-
 ## Networking
 ```
 docker network create nihon
