@@ -7,8 +7,8 @@ mkdir ~/working_directory
 cd ~/working_directory
 git clone https://github.com/hirooka/izanagi
 cd izanagi
-cp ~/Dockerfile .
-cp ~/tuner.json src/main/resources/
+cp ~/IdeaProjects/izanagi/Dockerfile .
+cp ~/IdeaProjects/izanagi/src/main/resources/tuner.json src/main/resources/
 docker build . -t $USER/izanagi:1.0.0-SNAPSHOT
 
 cd ~/working_directory
@@ -24,7 +24,7 @@ docker build . -t $USER/tsukuyomi:1.0.0-SNAPSHOT
 cd ~/working_directory
 git clone https://github.com/hirooka/nihon
 cd nihon
-docker-compose up -d
+docker compose up -d
 ```
 ## Raspberry Pi 4 + Ubuntu 20.04.2 (arm64)
 ```

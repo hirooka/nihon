@@ -8,6 +8,7 @@ docker network create nihon
 docker pull postgres
 
 docker run \
+  --rm \
   --name izanagi-postgres \
   --net nihon \
   -e POSTGRES_USER=izanagi \
@@ -18,6 +19,7 @@ docker run \
   postgres
 
 docker run \
+  --rm \
   --name izanagi-postgres \
   --net nihon \
   -e POSTGRES_USER=izanagi \
@@ -35,32 +37,34 @@ docker logs -f izanagi-postgres
 ```
 cd ~/working_directory
 git clone https://github.com/hirooka/izanagi
-cp ~/Dockerfile ~/working_directory/izanagi/
-cp ~/tuner.json ~/working_directory/izanagi/src/main/resources/
+cp ~/IdeaProjects/izanagi/Dockerfile ~/working_directory/izanagi/
+cp ~/IdeaProjects/izanagi/src/main/resources/tuner.json ~/working_directory/izanagi/src/main/resources/
 cd izanagi
 docker build . -t $USER/izanagi:1.0.0-SNAPSHOT
 
 docker run \
-    --name izanagi \
-    --net nihon \
-    --privileged \
-    --mount type=bind,source=/dev/,target=/dev/ \
-    --mount type=bind,source=/var/run/pcscd/pcscd.comm,target=/var/run/pcscd/pcscd.comm \
-    --mount type=bind,source=/etc/localtime,target=/etc/localtime:ro \
-    -p 8081:8081 \
-    -d \
-    -it $USER/izanagi:1.0.0-SNAPSHOT
+  --rm \
+  --name izanagi \
+  --net nihon \
+  --privileged \
+  --mount type=bind,source=/dev/,target=/dev/ \
+  --mount type=bind,source=/var/run/pcscd/pcscd.comm,target=/var/run/pcscd/pcscd.comm \
+  --mount type=bind,source=/etc/localtime,target=/etc/localtime:ro \
+  -p 8081:8081 \
+  -d \
+  -it $USER/izanagi:1.0.0-SNAPSHOT
 
 docker run \
-    --name izanagi \
-    --net nihon \
-    --privileged \
-    --mount type=bind,source=/dev/,target=/dev/ \
-    --mount type=bind,source=/var/run/pcscd/pcscd.comm,target=/var/run/pcscd/pcscd.comm \
-    --mount type=bind,source=/etc/localtime,target=/etc/localtime:ro \
-    -p 8081:8081 \
-    -it $USER/izanagi:1.0.0-SNAPSHOT \
-    /bin/bash
+  --rm \
+  --name izanagi \
+  --net nihon \
+  --privileged \
+  --mount type=bind,source=/dev/,target=/dev/ \
+  --mount type=bind,source=/var/run/pcscd/pcscd.comm,target=/var/run/pcscd/pcscd.comm \
+  --mount type=bind,source=/etc/localtime,target=/etc/localtime:ro \
+  -p 8081:8081 \
+  -it $USER/izanagi:1.0.0-SNAPSHOT \
+  /bin/bash
 
 docker ps
 docker logs -f izanagi
@@ -73,12 +77,14 @@ docker exec -it izanagi /bin/bash
 docker pull mongo
 
 docker run \
+  --rm \
   --name izanami-mongo \
   --net nihon \
   -d \
   mongo
 
 docker run \
+  --rm \
   --name izanami-mongo \
   --net nihon \
   --mount type=volume,source=izanami-mongo-data,target=/data/db \
@@ -94,6 +100,7 @@ cd izanami
 docker build . -t $USER/izanami:1.0.0-SNAPSHOT
 
 docker run \
+  --rm \
   --name izanami \
   --net nihon \
   --gpus all \
@@ -106,6 +113,7 @@ docker run \
   -it $USER/izanami:1.0.0-SNAPSHOT
 
 docker run \
+  --rm \
   --name izanami \
   --net nihon \
   --gpus all \
@@ -130,6 +138,7 @@ cd tsukuyomi
 docker build . -t $USER/tsukuyomi:1.0.0-SNAPSHOT
 
 docker run \
+  --rm \
   --name tsukuyomi \
   --net nihon \
   --privileged \
