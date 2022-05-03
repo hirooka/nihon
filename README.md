@@ -14,24 +14,40 @@ Video streaming system: [Izanagi](https://github.com/hirooka/izanagi), [Izanami]
 You create working directory and build [Izanagi](https://github.com/hirooka/izanagi), [Izanami](https://github.com/hirooka/izanami), [Tsukuyomi](https://github.com/hirooka/tsukuyomi) Docker image.
 
 ```
-mkdir ~/working directory
-cd ~/working directory
-# clone Izanagi and build on ~/working directory/izanagi
-# clone Izanami and build ~/working directory/izanami
-# clone Tsukuyomi and build ~/working directory/tsukuyomi
+mkdir ~/working_directory
+
+# clone Izanagi and build on ~/working_directory/izanagi
+cd ~/working_directory
+git clone https://github.com/hirooka/izanagi
+cd izanagi
+cp ~/IdeaProjects/izanagi/Dockerfile .
+cp ~/IdeaProjects/izanagi/src/main/resources/tuner.json src/main/resources/
+docker build . -t $USER/izanagi:1.0.0-SNAPSHOT
+
+# clone Izanami and build on ~/working_directory/izanami
+cd ~/working_directory
+git clone https://github.com/hirooka/izanami
+cd izanami
+docker build . -t $USER/izanami:1.0.0-SNAPSHOT
+
+# clone Tsukuyomi and build on ~/working_directory/tsukuyomi
+cd ~/working_directory
+git clone https://github.com/hirooka/tsukuyomi
+cd tsukuyomi
+docker build . -t $USER/tsukuyomi:1.0.0-SNAPSHOT
 ```
 
 Then you can start system via
 
 ```
-cd ~/working directory
+cd ~/working_directory
 git clone https://github.com/hirooka/nihon
 cd nihon
-docker-compose up
+docker compose up
 ```
 
-You can stop system via
+You can clean system via
 
 ```
-docker-compose stop
+docker compose down
 ```
